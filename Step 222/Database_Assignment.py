@@ -21,9 +21,9 @@ def dbMgmnt(dbArgument, supplement = None):
     conn = sqlite3.connect('test.db') # Connects to the 'test.db' db
     with conn:
         cur = conn.cursor() # The 'cursor' operates on the db
-        msg = '{}''("{}")'.format(dbArgument, supplement)
+        msg = '{}'.format(dbArgument), '("{}")'.format(supplement)
         print(msg)
-        if msg.endswith('("None")'): # checks if 'dbAsrgument1' is the argument
+        if msg.endswith(', ("None")'): # checks if 'dbAsrgument1' is the argument
             cur.execute('{}'.format(dbArgument))
         else:
             print("This is dbArgument2's print statement:\n{}".format(msg))
