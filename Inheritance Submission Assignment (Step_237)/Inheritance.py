@@ -21,7 +21,7 @@ class DayCareCenter(Business):
 # 'utilityCompany' is the 2nd child class; also inheriting all 5 of the 'Business'\
 # class's attributes, while having four of its own attributes:
 class utilityCompany(Business):
-    maxOutput = 400,000 MWh
+    maxOutput = "400,000 MWh"
     serviceArea = "Southwest"
     EnviroImpactIndex = 23
     lobbyists = True
