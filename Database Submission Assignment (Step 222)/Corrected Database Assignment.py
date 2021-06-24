@@ -25,7 +25,7 @@ def dbMgmnt(dbArgument, supplement = None):
     with conn: # With an established connection...
         cur = conn.cursor() # 'conn.cursor()' allows manipulation of the db
         # msg = '{}'.format(dbArgument), '("{}")'.format(supplement)
-        # if msg.endswith(', ("None")'): # checks if 'dbAsrgument1' is the argument
+        # if msg.endswith(', ("None")'): # checks if 'dbArgument1' is the argument
         if dbArgument == dbArgument1: # using this instead of the two lines above, since "AttributeError: 'tuple' object has no attribute 'endswith'"
             cur.execute('{}'.format(dbArgument))
         else:
