@@ -22,19 +22,17 @@ class ParentWindow(Frame): # 'Frame' is the PARENT CLASSS within tkinter
 
         # The displayed window:
         self.master = master
-        self.master.minsize(500, 300) # (Height, Width)
+        self.master.minsize(500, 300) # (height, width)
         self.master.maxsize(500, 300)
-        # This CenterWindow method will center our app on the user's screen:
-        phonebook_fun.center_window(self, 500, 300)
-        self.master.title("The Tkinter Phonebook Demo")
-        self.master.configure(b="#FOFOFO")
-        # This protocol method is a tkinter built-in method to catch if
-        # the user clicks the upper corner, "X" on Windows OS:
-        self.master.protocol("WM_DELETE-WINDOW", lamda: phonebook_func.ask_quit(self))
-        arg = self.master
+        phonebook_fun.center_window(self, 500, 300) # '.center_window()': centers app on the user's screen
+        self.master.title("The Tkinter Phonebook Demo") # window's title
+        self.master.configure(bg = "#FOFOFO") # window's backrgound color
+        
+        # '.protocol()': built-in tkinter method; this one checks if "X" in WindowsOS was clicked:
+        self.master.protocol("WM_DELETE-WINDOW", lambda: phonebook_func.ask_quit(self))
 
-        # load in the GUI widgets from a seperate module,
-        # keeping your code compartmentalized & clutter-free
+        # loads the GUI widgets from a seperate module, keeping code
+        # compartmentalized & clutter-free
         phonebook_gui.load_gui(self)
 
           
