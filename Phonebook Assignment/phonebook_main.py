@@ -1,4 +1,4 @@
-# Python Course - Steps 262 ("Phonebook App, Pt 1")
+# Python Course - Steps 262 & 264 ("Phonebook App, Pts 1 & 2")
 #   Created by: Douglas Foreman
 #   Created using: Python/IDLE v3.9.4
 # -------------------------------------
