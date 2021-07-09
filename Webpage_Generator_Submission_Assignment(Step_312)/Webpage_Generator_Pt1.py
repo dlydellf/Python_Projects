@@ -1,10 +1,10 @@
-# Python Course - Steps 310 & 311 ("Webpage Generator", Pts 1 & 2)
+# Python Course, Steps 310-312 ("Web Page Generator", Pts. I & II)
 #   Created by: Douglas Foreman
 #   Created using: Python/IDLE v3.9.4
 #------------------------------------
-# Objective: Recreate a supplied GUI that allows users
-#            to select a directory and show that directory
-#            in a text field.
+# Objective: Create a GUI that allows users
+#            to input text & initiate the
+#            web page generation process.
 #------------------------------------
 # line 43 == https://stackoverflow.com/questions/14824163/how-to-get-the-input-from-the-tkinter-text-widget
 #------------------------------------
@@ -19,7 +19,7 @@ class ParentWindow(Frame): # 'Frame' == the PARENT CLASS within tkinter
     def __init__(self, master): # 'self' == the'ParentWindow' class; 'master' == the 'Frame' class
         Frame.__init__(self)
 
-        # The displayed window:
+        # The displayed GUI:
         self.master = master
         self.master.geometry('{}x{}'.format(650, 260)) # Window's x/y
         self.master.resizable(width=False, height=False) # Internal widgets are ABSOLUTELY positioned, no need to resize window's x/y
@@ -39,7 +39,7 @@ class ParentWindow(Frame): # 'Frame' == the PARENT CLASS within tkinter
         self.btn_Submit = Button(self.master, width=7, height=1, text="Submit", command=lambda: pageGenerator(self))
         self.btn_Submit.place(x=5, y=230, width=140)
 
-# To generate webpage:
+# Script that generates webpage:
 def pageGenerator(self):
     newContent = self.txtbx.get('1.0', 'end-1c') # Captures input within 'self.txtbx' 
     fileName = open("upcomingSale.html", "w") # if (!"upcomingSale") {create new file}; else {OVERWRITE existing content}
