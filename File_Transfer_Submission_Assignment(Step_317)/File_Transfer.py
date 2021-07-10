@@ -11,7 +11,7 @@
 #------------------------------------
 '''
 # Part 1:
-import shutil # imports the 'shutil' module
+import shutil
 import os
 
 # Sets the files' source path:
@@ -27,9 +27,34 @@ for i in files:
 #Part 2:
 import shutil
 import os
+import datetime # importing the 'datetime' module instead of the 'time' module (thanks Hanna)
 
-source = './SourceFolder/'
-print(os.lstat(s))
+here = './Part2/(start)New_and_Modified_Files_from_ALL_Users/' # the folder containing all of the day's .txt files...
+
+# This () iterates through ALL files in above folder, returning only the .txt files after creating an absolute path to each file:
+def captureTxtFiles():
+    allFiles = os.listdir(here) # '.listdir()' == the iterator
+    textFiles = [files for files in allFiles if ".txt" in files] # --> isolating ONLY the .txt files
+    for eachTxtFile in textFiles:
+        absoluteFilePath = (here + eachTxtFile) # Concatenates each .txt fileName & filePath into an absolute path
+    within24Hrs(textFiles) # The output becomes the next ()'s argument
+
+# This () compares each .txt files' most recent modification to the current time:
+def within24Hrs(textFiles):    
+        modTime = os.path.getmtime(absoluteFilePath) # when was the file last modified (in epoch/seconds)?
+        localTime = datetime(modTime) # changes 'modTime' into the local time
+        hour = time.localtime(modTime).tm_hour # 'localtime(epoch).tm_hr' == returns the hour (in military time)
+        date = time.localtime(modTime).tm_mday
+        print("{}\n\t{} <<>> hr/dy: {} <<>> day/mnth:{}".format(absoluteFilePath, localTime, hour, date))
+        print(time.ctime())
+        #if hour < 24:
+            
+        
+
+
+if __name__ == "__main__":
+    captureTxtFiles()
+
 
 #shutil.copy2(src, destination) # 'copy2' used here to attempt preserving files' metadata (creation/modification times, etc.)
 
