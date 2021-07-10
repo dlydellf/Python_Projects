@@ -1,0 +1,5 @@
+Hello,
+
+This is the text for FileB of Step 315's Part 1.
+
+Goodbye.
