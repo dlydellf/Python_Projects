@@ -9,26 +9,27 @@
 #                    specific folder, and 2) transfers that
 #                    folder's contents to ANOTHER folder.
 #------------------------------------
+'''
 # Part 1:
-
 import shutil # imports the 'shutil' module
 import os
 
 # Sets the files' source path:
-source = './FolderA/'
+source = './FolderA/' # up one level (out of this .py file) and into the correct folder
 
 # Sets the destination path (to FolderB):
-destination = './FolderB/'
+destination = './FolderB/' # up one level (out of this .py file) and into the correct folder
 files = os.listdir(source) # Retrieves ALL files currently within the 'source' directory
 for i in files:
     shutil.move(source+i, destination) # Moves each file within the 'source' to its new destination
 '''
+#---------------
 #Part 2:
 import shutil
 import os
 
-s = '/Users/Michell/Desktop/FolderB/'
+source = './SourceFolder/'
 print(os.lstat(s))
 
 #shutil.copy2(src, destination) # 'copy2' used here to attempt preserving files' metadata (creation/modification times, etc.)
-'''
+

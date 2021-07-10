@@ -1,0 +1,149 @@
+** Use [] around keywords, like [TABLE], [ADD], [TRY], or [CATCH]
+** Use % to fill-in a string's chars		(<<---- WILDCARDS vvvvvv)
+** Use [] to search for individual chars within brackets
+** Use ^ to exclude chars being searched for within brackets
+** Use _ to substitute for a string query's char; (so, LIKE '_u%s' ==> 1st letter can be whatever, then a "u", fills-in rest, and ends w/"s")
+** Use * to select all columns from a table (SELECT * FROM table_name)
+** Use char(13) as a LINE BREAK (pressing the "Enter" key)
+** Use char(9) as a TAB (pressing the "Tab" key)
+** DataTypes = BIT (1/0), INT, FLOAT (.), VARCHAR(up to 255), NVARCHAR(uNicode - up to 255), LONG VARCHAR, DATE(YYYY-MM-DD), DATETIME(hh:mm:ss), & MONEY ($xxxx.xx)
+** UNIQUE KEY == null; PRIMARY KEY == !null... + [IDENTITY (starting value, increment by)]
+=================================================================
+	SYNTAX:				|		EXAMPLES:
+-----------------------------------------------------------------
+** USE database_name			| <---------- remove after executing; use again to SAVE PROC once created
+- - - - - - - - - - - - - - - - - - - - -
+** CREATE SCHEMA [schemaName]		| <---------- categorizes stored procedures
+   AUTHORIZATION [dbo]			| <---------- assigns authorization to the database's owner
+- - - - - - - - - - - - - - - - - - - - -
+** CREATE PROC stored_procedure's_name	| <---------- (use "dbo.uspAction_being_done_from_which_table") dbo = databaseOwner; usp = userDefinedProcedure
+   @parameterName			| <---------- parameter declaration (starts at the "@" symbol)
+   AS					|		
+   BEGIN 				|
+	(indent everything between)	|
+   END					|
+- - - - - - - - - - - - - - - - - - - - -
+** CREATE TABLE - creates a new table:
+CREATE TABLE table_name	(		|	CREATE TABLE Customers (
+  column_name datatype,			| 	  CustomerID varchar(255) NOT NULL PRIMARY KEY IDENTITY(100,1)
+  column_name datatype			| 	  IsCustomerRegistered bit
+)					|	)
+----------------------------------------------------------------
+** INSERT INTO - adds rows to a table:
+INSERT INTO tble_name(clmn_name1,etc)	|	INSERT INTO Customers(CustomerID, IsCustomerRegistered, Email)
+VALUES('value1'), ('value2'), ('etc')	|	VALUES('100', 1, 'customer@email.com'), ('102', 0, 'me@gmail.com'), ('103', 1, 'customer@customer.me')
+----------------------------------------------------------------
+** ALTER - add, delete, modify columns:
+ALTER TABLE table_name			|	ALTER TABLE Customers
+ADD column_name datatype		|	ADD Favorite_Childhood_Memory longvarchar----- to ADD COLUMNs
+-  -  -  -  -  -  -  -  -  -  -  -  -  -
+ALTER TABLE table_name			|	ALTER TABLE Customers_Table
+DROP COLUMN column_name			|	DROP COLUMN Favorite_Childhood_Memory <------- Delete COLUMNs (DROP TABLE table_name deletes ENTIRE TABLE, EVERYTHING)
+-  -  -  -  -  -  -  -  -  -  -  -  -  -
+** DELETE - to delete a row:
+DELETE FROM table_name			|	DELETE FROM Customer
+WHERE condition				|	WHERE IsCustomerRegistered = "0" <-------- to DELETE these ROWs (omitting WHERE deletes entire TABLE, EXCEPT its rows)
+----------------------------------------------------------------
+** ORDER - sorts a results set:
+SELECT * FROM table_name		|	SELECT * FROM Customers_Table
+ORDER BY column_name/DESC		|	ORDER BY CustomerID <--------------------- (use "DESC" for desending order)
+----------------------------------------------------------------
+** WHERE - clause specifying a condition:
+SELECT column_name, FROM table_name	|	SELECT Country FROM Customers_Table
+WHERE condition				|	WHERE Contry = 'Germany' <---------------- the CONDITIONAL STATEMENT
+----------------------------------------------------------------
+** UPDATE - PERMANENTLY changes a data field
+UPDATE table_name			|	UPDATE Customers_Table
+SET (field_name) = 'the NEW value'	|	SET CustomerID = '076'
+WHERE condition	= 'the OLD value'	|	WHERE CustomerID = '76'
+-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+** REPLACE() - TEMPORARILY swaps one substring for another:
+SELECT REPLACE('string','this','that')	|	SELECT REPLACE('I like dogs','dogs','cats')
+----------------------------------------------------------------
+** COUNT() - Returns rows matching specified criteria:
+SELECT COUNT(column_name)		|	SELECT COUNT(CustomerID) <---------------- gets COUNTED
+AS 'name_of_result'			|	AS 'NumberOfCustomers' <-------------------- title of DISPLAYED result
+FROM table_name				|	FROM Customers_Table <-------------------- source
+----------------------------------------------------------------
+			THE "JOINS"
+----------------------------------------------------------------
+** INNER JOIN - Returns rows where fields have matching data:
+SELECT *				|	SELECT Orders.OrdersID, Customers.CustomerName <------------- SELECT == what you want DISPLAYED as the result
+FROM table_A				|	FROM Orders
+INNER JOIN table_B			|	INNER JOIN Customers
+ON table_A.id = table_B.id;		|	ON Orders.CustomersID = Customers.CustomerID <---------------- ON is the "JOINING or MATCHING" clause
+---------------------------------------------------------------
+** FULL OUTER JOIN - Returns ALL rows from both tables:
+SELECT *				|	SELECT Orders.OrdersID, Customers.CustomerName
+FROM table_A				|	FROM Orders
+FULL OUTER JOIN table_B			|	FULL OUTER JOIN Customers
+ON table_A.id = table_B.id		|	ON Orders.CustomersID = Customers.CustomerID <---------------- Common to both + all NULLS from either table
+--------------------------------------------------------------
+** LEFT (and RIGHT) OUTER JOIN - Returns EVERYTHING
+(from left) + matches (from right):
+SELECT *				|	SELECT Orders.OrdersID, Customers.CustomerName
+FROM table_A				|	FROM Orders <------------------------------------------------ LEFT table, so all rows
+LEFT OUTER JOIN table_B			|	LEFT OUTER JOIN Customers
+ON table_A.id = table_B.id		|	ON Orders.CustomersID = Customers.CustomerName <------------- EVERYTHING from Orders + any matches (or NULL) from Customers
+--------------------------------------------------------------
+			ALIASES
+--------------------------------------------------------------
+** (For Tables):
+SELECT column_name			|	SELECT CustomerName
+FROM table_name AS alias_name		|	FROM Customers AS Accounts
+-  -  -  -  -  -  -  -  -  -  -  -  -   -
+** (For Columns):
+SELECT column_name AS alias_name	|	SELECT CustomerID AS Customer_Phone_Number_With_Area_Code
+FROM table_name				|	FROM Customers
+--------------------------------------------------------------
+			FOREIGN KEYS
+--------------------------------------------------------------
+...CONSTRAINT fk's_name			|	...CONSTRAINT fk_customerName <---------------------------- This is a made-up name which points to...
+FOREIGN KEY REFERENCES table_name(column_name)	FOREIGN KEY REFERENCES Customers(CustomerName) <----------- and is associated with this table and its column
+ON UPDATE CASCADE			|	ON UPDATE CASCADE
+ON DELETE CASCADE			|	ON DELETE CASCADE
+--------------------------------------------------------------
+			VARIABLES
+--------------------------------------------------------------
+DECLARE @variable_name datatype		|	DECLARE @myVariable INT <---------------------------------- declares the VARIABLE & its DATATYPE
+SET @variable_name = vaule		|	SET @myVariable 69837 <------------------------------------ assigns the VARIABLE its value
+CONVERT (new_datatype,@variable_name)	|	CONVERT (varchar(50),@myVariable) <------------------------ CONVERTS one DATATYPE into another (for concatenation)
+--------------------------------------------------------------
+			LOGIC OPERATORS
+--------------------------------------------------------------
+AND, OR, NOT - Same as in JS
+MIN / MAX - searches for the MINIMUM/MAXIMUM values in a column
+BEWTEEN - searches for values WITHIN A RANGE (inclusive)
+EXISTS - searches for the PRESENCE of a value
+IN - checks if a value IS A MATCH from a list of values
+LIKE / NOT LIKE - compares a value to similar values using WILDCARDS ("_" & "%")
+IS NULL - compares a value with a NULL value
+UNIQUE - searches EVERY ROW of a table for uniqueness
+TOP n / TOP n PERCENT- limits results to only the TOP(1st) n (or n%)
+--------------------------------------------------------------
+			ERRORS / EXCEPTIONS
+--------------------------------------------------------------
+TRY & CATCH - tests for & resolves the above:
+** BEGIN TRY								|  BEGIN TRY
+      SET condition							|    SET @results = (SELECT COUNT(Customers.customerID) FROM Customers WHERE CustomerID=9)
+	IF exception_condition						|	IF @results != 9
+	   BEGIN							|	   BEGIN
+		RAISERROR(@errorString, severity error codes x2)	|		RAISERROR('Customer not found"... or something, 16, 1) <-- directs to CATCH
+		RETURN							|		RETURN
+	   END								|	   END
+	ELSE IF expected_condition					|	ELSE IF @results = 9
+	   BEGIN							|	   BEGIN
+		regular code block					|		(the regular code that runs)
+	   END								|	   END
+   END TRY								|	END TRY
+BEGIN CATCH								    BEGIN CATCH
+	SELECT @errorString = ERROR_MESSAGE()				|   	SELECT
+	RAISEERROR (@errorString, 10, 1)				|	ERROR_NUMBER() AS [Error_Code] <-------- built-in SQL function
+END CATCH								|	ERROR_PROCEDURE() AS [Invalid_Proc] <--- built-in SQL function
+									|	ERROR_MESSAGE() () AS [Error_Details]<-- built-in SQL function
+									|	RAISERROR (@errorstring, 10, 1) <------- ??????
+									|   END CATCH
+
+Step 292, 
+
+
