@@ -31,25 +31,23 @@ import datetime # importing the 'datetime' module instead of the 'time' module (
 
 here = './Part2/(start)New_and_Modified_Files_from_ALL_Users/' # the folder containing all of the day's .txt files...
 
-# This () iterates through ALL files in above folder, returning only the .txt files after creating an absolute path to each file:
+# This () iterates through ALL files in above folder, capturing ONLY the .txt files:
 def captureTxtFiles():
     allFiles = os.listdir(here) # '.listdir()' == the iterator
     textFiles = [files for files in allFiles if ".txt" in files] # --> isolating ONLY the .txt files
     for eachTxtFile in textFiles:
-        absoluteFilePath = (here + eachTxtFile) # Concatenates each .txt fileName & filePath into an absolute path
-    within24Hrs(absoluteFilePath) # The output becomes the next ()'s argument
+        absoluteFilePath = (here + eachTxtFile) # an absolute file path is REQUIRED to use 'os.path.getmtime' (below)!
+    lastModified(absoluteFilePath) # Output becomes the next ()'s argument
 
-# This () compares each .txt file's most recent modification against the current time:
-def within24Hrs(absoluteFilePath):    
+# This () returns each .txt file's most recent modification time:
+def lastModified(absoluteFilePath):
         modTime = os.path.getmtime(absoluteFilePath) # when was the file last modified (in epoch/seconds)?
         localTime = datetime(modTime) # changes 'modTime' into the local time
         hour = time.localtime(modTime).tm_hour # 'localtime(epoch).tm_hr' == returns the hour (in military time)
         date = time.localtime(modTime).tm_mday
-        print("{}\n\t{} <<>> hr/dy: {} <<>> day/mnth:{}".format(absoluteFilePath, localTime, hour, date))
-        print(time.ctime())
-        #if hour < 24:
-            
         
+            
+# absoluteFilePath = (here + eachTxtFile) # Concatenates each .txt fileName & filePath into an absolute path
 
 
 if __name__ == "__main__":
