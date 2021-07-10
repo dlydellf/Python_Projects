@@ -26,7 +26,7 @@ class ParentWindow(Frame): # 'Frame' is the PARENT CLASSS within tkinter
         self.master.maxsize(500, 300)
         phonebook_fun.center_window(self, 500, 300) # '.center_window()': centers app on the user's screen
         self.master.title("The Tkinter Phonebook Demo") # window's title
-        self.master.configure(bg = "#FOFOFO") # window's backrgound color
+        self.master.configure(bg = "#FOFOFO") # window's background color
         
         # '.protocol()': built-in tkinter method; this one checks if "X" in WindowsOS was clicked:
         self.master.protocol("WM_DELETE-WINDOW", lambda: phonebook_func.ask_quit(self))
