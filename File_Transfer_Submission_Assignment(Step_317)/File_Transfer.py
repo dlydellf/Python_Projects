@@ -37,10 +37,10 @@ def captureTxtFiles():
     textFiles = [files for files in allFiles if ".txt" in files] # --> isolating ONLY the .txt files
     for eachTxtFile in textFiles:
         absoluteFilePath = (here + eachTxtFile) # Concatenates each .txt fileName & filePath into an absolute path
-    within24Hrs(textFiles) # The output becomes the next ()'s argument
+    within24Hrs(absoluteFilePath) # The output becomes the next ()'s argument
 
-# This () compares each .txt files' most recent modification to the current time:
-def within24Hrs(textFiles):    
+# This () compares each .txt file's most recent modification against the current time:
+def within24Hrs(absoluteFilePath):    
         modTime = os.path.getmtime(absoluteFilePath) # when was the file last modified (in epoch/seconds)?
         localTime = datetime(modTime) # changes 'modTime' into the local time
         hour = time.localtime(modTime).tm_hour # 'localtime(epoch).tm_hr' == returns the hour (in military time)
