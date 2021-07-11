@@ -35,21 +35,27 @@ here = './Part2/(start)New_and_Modified_Files_from_ALL_Users/' # the folder cont
 def captureTxtFiles():
     allFiles = os.listdir(here) # '.listdir()' == the iterator
     textFiles = [files for files in allFiles if ".txt" in files] # --> isolating ONLY the .txt files
+    absoluteFilePaths = [] # An empty list to store each file's absolute file path
     for eachTxtFile in textFiles:
-        absoluteFilePath = (here + eachTxtFile) # an absolute file path is REQUIRED to use 'os.path.getmtime' (below)!
-    lastModified(absoluteFilePath) # Output becomes the next ()'s argument
+        absoluteFilePath = os.path.join(here, eachTxtFile) # an absolute file path is REQUIRED to use 'os.path.getmtime' (below)!
+        absoluteFilePaths.append(absoluteFilePath)
+    print(absoluteFilePaths)
 
+    
+    #lastModified(absoluteFilePath) # Output becomes the next ()'s argument
+'''
 # This () returns each .txt file's most recent modification time:
 def lastModified(absoluteFilePath):
         modTime = os.path.getmtime(absoluteFilePath) # when was the file last modified (in epoch/seconds)?
         localTime = datetime(modTime) # changes 'modTime' into the local time
         hour = time.localtime(modTime).tm_hour # 'localtime(epoch).tm_hr' == returns the hour (in military time)
         date = time.localtime(modTime).tm_mday
+        print(absoluteFilePath)
+        print(modTime)
         
-            
 # absoluteFilePath = (here + eachTxtFile) # Concatenates each .txt fileName & filePath into an absolute path
 
-
+'''
 if __name__ == "__main__":
     captureTxtFiles()
 
