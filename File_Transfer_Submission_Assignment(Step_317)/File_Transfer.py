@@ -15,10 +15,8 @@
 # Part 1:
 import shutil
 import os
-
 # Sets the files' source path:
 source = './FolderA/' # up one level (out of this .py file) and into the correct folder
-
 # Sets the destination path (to FolderB):
 destination = './FolderB/' # up one level (out of this .py file) and into the correct folder
 files = os.listdir(source) # Retrieves ALL files currently within the 'source' directory
@@ -53,8 +51,6 @@ def lastModified(self):
     timeNow = datetime.datetime.now() # current time, in seconds
     time24hrsAgo = timeNow - datetime.timedelta(hours=24)
     absoluteFilePaths = os.listdir(self.sourcefolder)
-    print(self.sourcefolder)
-    print(absoluteFilePaths)
     for eachFile in absoluteFilePaths:
         modTime = os.path.getmtime(self.sourcefolder+'/'+eachFile) # when was each file last modified? (functional, thanks to Levi!!)
         modificationTime = datetime.datetime.fromtimestamp(modTime)
@@ -118,7 +114,7 @@ class ParentWindow(Frame): # 'Frame' is the PARENT CLASS within tkinter
             self.Resultslbl['text'] = 'The "Initate FileCheck Now?" button has become available...'
             self.fileCheck['text'] = "Initiate\nFileCheck now?"
             self.destinationfolder = folder
-            self.fileCheck['command'] = lastModified(self) ######## either this function 1) is missing its 2 arguments (when using "*args"), or 2) the arguments aren't defined (when I explicitely state them, like I'm doing here)
+            self.fileCheck['command'] = lastModified(self)
             lastModified(self) # all 3 arguments passed into Step 5 (above, in Part 2)...
         else:
             self.OutputWindow['text'] = "You've selected this folder's path as the SOURCE:\n{}".format(folder)
