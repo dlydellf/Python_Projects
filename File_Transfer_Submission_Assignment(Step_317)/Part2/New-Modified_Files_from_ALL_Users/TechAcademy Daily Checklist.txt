@@ -1,14 +1,14 @@
 DAILY REPORT:
 1) Anything I NEED EXTRA HELP UNDERSTANDING?
 
-2) Any POSITIVE EXPERIENCES I had during today's LMS? 
+2) Any POSITIVE EXPERIENCES I had during today's LMS? With major help from Levi, overcame a Python hurdle within the "File Transfer" assignment.  Also, attended & participated in Forest's last Weekly Roundtable.
 
-3) ANY OTHER FEEDBACK I'd like to provide? f
+3) ANY OTHER FEEDBACK I'd like to provide?
 
 4) How many HOURS DID I STUDY today?
- hours (5pm - 6:30pm, 7pm - )
+ hours wed/14 (1:30pm-4:30p,4:45pm - 6:15pm) 
 
-25 days / STEP 316 - ?
+29 days / STEP 323 - ?
 --------------------------------------------------------------
 
 WEEKLY SURVEY:
@@ -17,13 +17,16 @@ WEEKLY SURVEY:
 2) Any MATERIALS / SUPPLIES I need - would HELP ME WITH MY PROGESS?
 
 3) How many MEETUPS did I attend this week?  
-One - Friday's 3-4pm "You Are Someone's Ideal Employee" w/Jeffrey Padgett
+Two - Monday's 7:30-8:30pm "Intro to Python, Pt.3" w/Connor Slagle, Tuesday's 6 - 7pm "EXPLAINED: AI Explained in 4 Levels of Difficulity"
 
 4) Any POSITIVE EXPERIENCES / SUCCESSES I've like to share?
 
 5) Any COMPLAINTS?
 
 6) How many hours did I STUDY this week?
+tues/13 (5pm - 6:30pm, 7pm - 9:15pm, 10:15pm - 3am),
+wed/14 (1:30pm-4:30p,4:45pm - 6:15pm) 
+
 
 7) Job Search Progress?
 
@@ -35,10 +38,12 @@ One - Friday's 3-4pm "You Are Someone's Ideal Employee" w/Jeffrey Padgett
 
 -------------------------------------------------------------- 	
 Profile's Email Form:
-	https://formspree.io
+	https://formspree.io/f/myylkrre
 --------------------------------------------------------------
 AWS Access Key ID:
+	*AKIA57WCZ6ANSCSVLXMD
 AWS Secret Access Key:
+	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
 --------------------------------------------------------------
 From Friday, 06.04.21 - "Tech Interview Office Hours" w/Chris Ling:
 Interview Types: 
