@@ -34,7 +34,7 @@ import datetime # importing the 'datetime' module instead of the 'time' module (
 source = './Part2/New-Modified_Files_from_ALL_Users/' # the folder containing all of the day's .txt files (ONLY hardcoded as a default for Part2!!)
 destination = './Part2/Destination_Folder(To_HomeOffice)/' # (this was also hardcoded only to use as a default within Part 2)
 
-# This () iterates through ALL files in the source folder, creating an absolute path for ONLY the captured .txt files:
+# This () iterates through ALL files in the source folder, creating an absolute path for ONLY any captured .txt files:
 def captureTxtFiles(source='./Part2/New-Modified_Files_from_ALL_Users/'):    
     absoluteFilePaths = [] # An empty list to store each file's absolute file path
     allFiles = os.listdir(source) # '.listdir()' == the iterator
@@ -42,7 +42,7 @@ def captureTxtFiles(source='./Part2/New-Modified_Files_from_ALL_Users/'):
     for eachTxtFile in textFiles:
         absoluteFilePath = os.path.join(source, eachTxtFile) # an absolute file path is REQUIRED to determine lastModified's "modTime"!
         absoluteFilePaths.append(absoluteFilePath)
-    lastModified(absoluteFilePaths, textFiles) # The next ()'s arguments...
+    App.TxtFileResults(absoluteFilePaths, textFiles)
         
 # This () compares each .txt file's most recent modification time to the current time, copying those modified within the past 24hrs:
 def lastModified(absoluteFilePaths, textFiles, destination='./Part2/Destination_Folder(To_HomeOffice)/'):
@@ -74,17 +74,17 @@ class ParentWindow(Frame): # 'Frame' is the PARENT CLASS within tkinter
 
         # The displayed window:
         self.master = master
-        self.master.geometry('{}x{}'.format(880, 250)) # window's default size upon launching
+        self.master.geometry('{}x{}'.format(880, 450)) # window's default size upon launching
         self.master.resizable(width=False, height=False) # User cannot resize window's x/y
         self.master.title('') # window's Title
         self.master.config(bg='lightgrey') # window's background color
 
         # The 'Select Folder' BUTTON:
-        self.btn = Button(self.master, width=11, height=1, text="Select", command=self.directorySelect, font=('Helvetica, 10'))
+        self.btn = Button(self.master, width=11, height=1, text="Source", command=self.directorySelect, font=('Helvetica, 10'))
         self.btn.grid(row=0, column=0, padx=(15,0), pady=(20,0), sticky=NW)
 
         # The 'Folder's Result' LABEL:
-        self.Resultslbl = Label(self.master, width=90, text=('<<------  Use the "SELECT" button to choose which folder will be checked:'), font=('Helvetica, 10'))
+        self.Resultslbl = Label(self.master, width=90, wraplength=650, text=('<<------  Use the "SOURCE" button to choose which folder will be checked:'), font=('Helvetica, 10'))
         self.Resultslbl.grid(row=0, column=1, columnspan=2, padx=(20,0), pady=(20,0), sticky=EW)
 
         # The '24hr Check' BUTTON:
@@ -92,28 +92,29 @@ class ParentWindow(Frame): # 'Frame' is the PARENT CLASS within tkinter
         self.btnCheck.grid(row=1, column=0, padx=(15,0), pady=(80,0), sticky=NW)
 
         # The 'Output Window' LABEL:
-        self.Outputlbl = Label(self.master, width=45, text='', height=11, cursor='right_ptr')
-        self.Outputlbl.grid(row=1, column=1, columnspan=2, padx=(20,0), pady=(10,0), sticky=NSEW)
+        self.OutputWindow = Label(self.master, width=45, wraplength=650, text='', height=11, cursor='right_ptr')
+        self.OutputWindow.grid(row=1, column=1, columnspan=2, padx=(20,0), pady=(5,0), sticky=NSEW)
 
-    # To SELECT A DIRECTORY:
+    # To SELECT A 'SOURCE' DIRECTORY:
     def directorySelect(self):
-        folder = fd.askdirectory() # The USER gets to decide within which folder to search for .txt files
-        self.Resultslbl.config(text = "You've selected this folder path:\n{}".format(folder))
-        captureTxtFiles('{}/'.format(folder)) # Chosen folder is passed into related function (above, in Part 2)
+        folder = fd.askdirectory() # Allows User to decide within which folder search is performed
         if not folder: # If User closes dialog box or clicks the 'Cancel' button, return
             return
+        else:
+            self.OutputWindow['text'] = "You've selected this folder's path:\n{}".format(folder)
+            captureTxtFiles('{}/'.format(folder)) # Chosen folder is passed into next function (above, in Part 2)
+        #self.Resultslbl['text'] = '<<<-----  The folder RECEIVING these files can now be selected with the "DESTINATION" button'
+        
 
-    # The Results of checking for .txt files:
+    # Did the folder contain any .txt files?
     def TxtFileResults(self, absoluteFilePaths, textFiles):    
         if absoluteFilePaths == []:
-            self.Outputlbl['text'] = "No text files were found in your chosen folder!\n\nPlease select a different folder."
+            self.Resultslbl['text'] = "Your chosen folder contains no text files;\nPlease select a different folder"
         else:
-            self.Resultslbl.config(text = "That folder contains these text files, which will be forwarded to the Home Office:")
+            self.OutputWindow['text'] += "\n\nThat folder contains these text files, which may be forwarded to the Home Office:\n"
             for eachFile in textFiles:
-                self.Outputlbl['text'] += eachFile + '\n'
-
-                #fileName = eachFile('\n')
-                #self.Outputlbl.config(text = f'{fileName}')
+                self.OutputWindow['text'] += eachFile + '\n'
+            self.Resultslbl['text'] = ''
         
             
 if __name__ == '__main__':
