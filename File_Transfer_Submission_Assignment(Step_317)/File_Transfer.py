@@ -35,7 +35,9 @@ import datetime # importing the 'datetime' module instead of the 'time' module (
 source = './Part2/New-Modified_Files_from_ALL_Users/' # the folder containing all of the day's .txt files (ONLY hardcoded as a default for Part2!!)
 destination = './Part2/Destination_Folder(To_HomeOffice)/' # (this was also hardcoded only to use as a default within Part 2)
 
-# This () iterates through ALL files in the source folder, creating an absolute path for ONLY any captured .txt files:
+
+
+# Step 2 - Iterate through ALL files in the source folder, creating an absolute path for ONLY any captured .txt files:
 def captureTxtFiles(source='./Part2/New-Modified_Files_from_ALL_Users/'):    
     absoluteFilePaths = [] # An empty list to store each file's absolute file path
     allFiles = os.listdir(source) # '.listdir()' == the iterator
@@ -43,20 +45,18 @@ def captureTxtFiles(source='./Part2/New-Modified_Files_from_ALL_Users/'):
     for eachTxtFile in textFiles:
         absoluteFilePath = os.path.join(source, eachTxtFile) # an absolute file path is REQUIRED to determine lastModified's "modTime"!
         absoluteFilePaths.append(absoluteFilePath)
-    App.TxtFileResults(absoluteFilePaths, textFiles)
+    App.TxtFileResults(absoluteFilePaths, textFiles) # Step 3, bottom
+    
         
-# This () compares each .txt file's most recent modification time to the current time, copying those modified within the past 24hrs:
+# Step 5 - Compares each .txt file's most recent modification time to the current time, copying those modified within the past 24hrs:
 def lastModified(absoluteFilePaths, textFiles, destination='./Part2/Destination_Folder(To_HomeOffice)/'):
     timeNow = datetime.datetime.now().timestamp() # current time, in seconds
     time24hrsAgo = (timeNow-86400) # timeNow, minus a day's-worth of seconds (86,400)
-    #print('Current time is {}'.format(timeNow))
-    #print('  24hrs ago was {}'.format(time24hrsAgo))
     for eachFile in absoluteFilePaths:
         modTime = os.path.getmtime(eachFile) # when was each file last modified? (outputs in epoch/seconds)
-        #print("{}\nLast Mod Timestamp: {}\n HASH Timestamp(?): {}\n".format(eachFile, modTime, hash(modTime)))
         if modTime <= time24hrsAgo:
             shutil.copy2(eachFile, destination) # using 'copy2' instead of 'copy' to attempt preserving files' metadata (creation/modification times, etc).
-    App.TxtFileResults(absoluteFilePaths, textFiles) # Captured .txt files (if any) cause updates to Part 3's GUI
+    App.OutputWindow['text'] = "All text files within the chosen\nfolder have been successfully copied to\nyour destination folder" # Captured .txt files (if any) cause updates to Part 3's GUI
     
 '''
 if __name__ == "__main__":
@@ -102,33 +102,35 @@ class ParentWindow(Frame): # 'Frame' is the PARENT CLASS within tkinter
 #   The FUNCTIONS
 #----------------
 
-    # To select 'SOURCE' & 'DESTINATION' directories:
-    def directorySelect(self):
+    # Steps 1 & 4 - Select 'SOURCE' & 'DESTINATION' directories:
+    def directorySelect(self, *args):
         folder = fd.askdirectory() # Allows User to decide which folders are selected
         if not folder: # if User closes dialog box or clicks the 'Cancel' button, return
             return
         elif "RECEIVING" in self.Resultslbl['text']:
-            self.OutputWindow['text'] = "You've selected this folder's path as the DESTINATION:\n".format(folder)
-            self.fileCheck[command] = self.lastModified
+            self.OutputWindow['text'] = "You've selected this folder's path as the DESTINATION:\n{}\n\n<<--------------------------\n\nUse the 'Initiate FileCheck Now?' button\nto begin the file check process...".format(folder)
+            self.Resultslbl['text'] = 'The "Initate FileCheck Now?" button has become available...'
             self.fileCheck['text'] = "Initiate\nFileCheck now?"
-            lastModified(folder) # Folder passed into beginning of "File Check" process...
+            self.fileCheck['command'] = lastModified(absoluteFilePaths, textFiles) ######## either this function 1) is missing its 2 arguments (when using "*args"), or 2) the arguments aren't defined (when I explicitely state them, like I'm doing here)
+            lastModified(self, *args) # all 3 arguments passed into Step 5 (above, in Part 2)...
         else:
             self.OutputWindow['text'] = "You've selected this folder's path as the SOURCE:\n{}".format(folder)
-            captureTxtFiles(folder) # Chosen folder is passed into next function (above, in Part 2)            
+            captureTxtFiles(folder) # Chosen folder is passed into Step 2 (above, in Part 2), replacing the default 'source'   
             
             
-    # Did the folder contain any .txt files?
+    # Step 3 - Did the folder contain any .txt files?
     def TxtFileResults(self, absoluteFilePaths, textFiles):    
         if absoluteFilePaths == []: # there are no .txt files in the chosen folder
             self.Resultslbl['text'] = "Your chosen folder contains no text files;\nPlease select a different folder"
-            self.directorySelect
+            self.directorySelect # back to Step 1...
         else:
             self.OutputWindow['text'] += "\n\nThese are the text files within your SOURCE folder:\n"
             for eachFile in textFiles:
                 self.OutputWindow['text'] += eachFile + '\n'
-            self.btn['text'] = 'Destination'
+            self.btn['text'] = 'Destination' # Reassigning previous element; User is prompted to Step 1 (now Step 4)
             self.Resultslbl['text'] = '<<<-----  The folder RECEIVING these files can now be selected with the "DESTINATION" button'
-            lastModified(absoluteFilePaths, textFiles)
+            #self.directorySelect(self, absoluteFilePaths, textFiles)
+            
 
             
 if __name__ == '__main__':
