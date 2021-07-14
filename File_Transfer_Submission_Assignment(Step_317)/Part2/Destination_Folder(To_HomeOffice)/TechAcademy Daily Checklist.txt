@@ -1,0 +1,63 @@
+DAILY REPORT:
+1) Anything I NEED EXTRA HELP UNDERSTANDING?
+
+2) Any POSITIVE EXPERIENCES I had during today's LMS? 
+
+3) ANY OTHER FEEDBACK I'd like to provide? f
+
+4) How many HOURS DID I STUDY today?
+ hours (5pm - 6:30pm, 7pm - )
+
+25 days / STEP 316 - ?
+--------------------------------------------------------------
+
+WEEKLY SURVEY:
+1) Anything I NEED HELP WITH?
+
+2) Any MATERIALS / SUPPLIES I need - would HELP ME WITH MY PROGESS?
+
+3) How many MEETUPS did I attend this week?  
+One - Friday's 3-4pm "You Are Someone's Ideal Employee" w/Jeffrey Padgett
+
+4) Any POSITIVE EXPERIENCES / SUCCESSES I've like to share?
+
+5) Any COMPLAINTS?
+
+6) How many hours did I STUDY this week?
+
+7) Job Search Progress?
+
+8) Any I'd like to REFER to the program?
+
+9) Anything else I'd like to MAKE KNOWN?
+
+
+
+-------------------------------------------------------------- 	
+Profile's Email Form:
+	https://formspree.io
+--------------------------------------------------------------
+AWS Access Key ID:
+AWS Secret Access Key:
+--------------------------------------------------------------
+From Friday, 06.04.21 - "Tech Interview Office Hours" w/Chris Ling:
+Interview Types: 
+	1. Slack, Terms, Concept Interview - no code, just concepts / be specific, but you CAN go deeper if needed
+	2. Ownership or Retro Interview - The DEEP DIVE into code ("Plus-minus-delta" = what do you like, dislike, & want to improve?)
+	3. Data Structures & Algorithims Interview - Coding, optimization(Big-O), & scalability
+	4. Product/System Design Interview - Hypothetical product/service from scratch, based upon an existing product/service (reverse-engineer it)
+	5. Data Engineering/Analytics Interview - ETL (extract, transfer, load) Process of BIG Data
+	6. "Deploy an App" Interview - In 1hr/4hr/24hr4/8hr, use a framework/library to deploy a working "toy" app within given specifications.
+
+Misc Notes:
+	a. "Grocking Algorithms", "Cracking the Coding Interview"
+	b. PostgreSQL Exercises.com
+	c. Lodash/ Chart.js/ Victory/Vacasa
+===============================================================
+ABSOLUTELY V-I-T-A-L - IMPLIMENT THESE IMMEDIATELY!!!!!
+===============================================================
+	SCOPE (define your limitations, or scope, to work within), then
+	ROADMAP (pseudo-code, but don't become too specific).  Next, 
+	CODE (flesh-out the ROADMAP with some code), then
+	RETRO (time & memory performance)
+================================================================

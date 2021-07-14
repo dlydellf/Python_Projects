@@ -1,0 +1,8 @@
+ghp__3BQznjiWkiBWB1Hhk7vPxhv6opwSr0va7wg
+
+
+
+=======================
+MySQL:
+Server=localhost;Database=master;Trusted_Connection=True;
+MSSQLSERVER
